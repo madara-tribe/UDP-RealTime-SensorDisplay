@@ -1,4 +1,5 @@
-from tkinter import messagebox, ttk, Text, filedialog
+from tkinter import messagebox, ttk, Text
+from logging import getLogger, FileHandler, Formatter, INFO
 import tkinter as tk
 import os 
 import time
@@ -16,6 +17,14 @@ class Application(tk.Frame):
         self.locaddr = (host, port) 
         self.create_socket()
         self.create_widgets()
+        self.logger = getLogger("ESP")
+        self.logger.setLevel(INFO)
+        # handler to write log to file
+        handler = FileHandler('hoge.log')
+        handler.setLevel(INFO)
+        handler.setFormatter(Formatter('%(name)s-%(asctime)s-%(message)s',
+                                    datefmt='%Y%m%d'))
+        self.logger.addHandler(handler)
 
     def create_socket(self):
         self.sock = socket.socket(socket.AF_INET, type=socket.SOCK_DGRAM)
@@ -46,7 +55,7 @@ class Application(tk.Frame):
                 message, cli_addr = self.sock.recvfrom(M_SIZE)
                 message = message.decode(encoding='utf-8')
                 self.writeToLog(message)
-                print(f'Received message is [{message}]')
+                self.logger.info('Received message is {}'.format(message))
                 time.sleep(1)
                 print('Send response to Client')
                 self.sock.sendto('Success to receive message'.encode(encoding='utf-8'), cli_addr)
