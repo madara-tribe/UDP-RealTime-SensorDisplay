@@ -1,13 +1,17 @@
-# Jetson_sensor_over_udp
+# UDP Sensor data RealTime Display
 
 
-# To use
+# To use "matplotlib" with Qt
 
-Change matplotlib backend
+Change matplotlib backend and add to python script as follows;
 ```
-# https://stackoverflow.com/questions/20582384/importerror-no-module-named-backend-tkagg
+# https://matplotlib.org/stable/users/explain/backends.html
 vi ~/matplotlib/mpl-data/matplotlibrc
 
 # add
-backend: Agg
+backend: Qt5Agg
+```
+```python
+import matplotlib
+matplotlib.use('qtagg')
 ```
