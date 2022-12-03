@@ -1,4 +1,4 @@
-# UDP Sensor data RealTime Display
+# RealTime Display for UDP Sensor data with Qt
 
 
 # To use "matplotlib" with Qt
