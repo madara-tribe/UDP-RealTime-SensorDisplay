@@ -1,4 +1,4 @@
-# RealTime Display for UDP Sensor data with Qt
+# RealTime Display for UDP Sensor data with PyQt
 
 Get sensor data from jetson and send to GUI on Mac (Pyside)
 
