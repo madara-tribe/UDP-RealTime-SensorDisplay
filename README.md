@@ -2,7 +2,7 @@
 
 Get sensor data from jetson and send to GUI on Mac (Pyside)
 
-
+![sensor](https://user-images.githubusercontent.com/48679574/205445600-a379f2f5-a2ea-4c57-9166-6b7614148d82.png)
 
 # To use "matplotlib" with PyQt5
 
