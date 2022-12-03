@@ -13,5 +13,5 @@ backend: Qt5Agg
 ```
 ```python
 import matplotlib
-matplotlib.use('qtagg')
+matplotlib.use('Qt5Agg')
 ```
