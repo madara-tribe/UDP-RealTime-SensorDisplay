@@ -18,16 +18,17 @@ class ApplicationWindow(QWidget):
         self.initCanvas()
         self.initFigure()
         self.initUI()
+        self.initTime()
         self.server = server
         self.now_time = 0
         self.stime = time.time()
         
     def initUI(self):
-        # LCD number
-        self.lcd1 = QLCDNumber(self)
-        self.lcd1.setStyleSheet("QWidget { background-color: rgb(100, 100, 255) }")
-        self.lcd2 = QLCDNumber(self)
-        self.lcd2.setStyleSheet("QWidget { background-color: rgb(100, 100, 255) }")
+        # LCD number of time and sensor
+        self.time_lcd = QLCDNumber(self)
+        self.time_lcd.setStyleSheet("QWidget { background-color: rgb(100, 100, 255) }")
+        self.sensor_lcd = QLCDNumber(self)
+        self.sensor_lcd.setStyleSheet("QWidget { background-color: rgb(100, 100, 255) }")
 
         startButton = QPushButton("Start")
         startButton.clicked.connect(self.onStartButton)
@@ -43,10 +44,10 @@ class ApplicationWindow(QWidget):
 
         l3 = QGridLayout()
         l3.addWidget(QLabel("Time:"), 0, 0)
-        l3.addWidget(self.lcd1, 0, 1)
+        l3.addWidget(self.time_lcd, 0, 1)
         l3.addWidget(QLabel("s"), 0, 2)
         l3.addWidget(QLabel("Voltage:"), 1, 0)
-        l3.addWidget(self.lcd2, 1, 1)
+        l3.addWidget(self.sensor_lcd, 1, 1)
         l3.addWidget(QLabel("V"), 1, 2)
 
         l23 = QVBoxLayout()
@@ -78,39 +79,35 @@ class ApplicationWindow(QWidget):
     def initTime(self):
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.updateFigure)
-        self.timer.start()
         
     def time_count(self):
         self.now_time = time.time()-self.stime
-        time.sleep(0.01)
-        
+        time.sleep(0.03)
         
     def updateFigure(self):
-        # time plot
+        # timer
         self.time_count()
         self.serT = self.now_time
         self.t = np.append(self.t, self.serT)
         self.t = np.delete(self.t, 0)
         
-        # sensor data plot
-        self.serY = self.server._receive() # np.random.random_sample()
+        # sensor data
+        self.serY = self.server._receive() #np.random.random_sample()
         self.y = np.append(self.y, self.serY)
         self.y = np.delete(self.y, 0)
         
-        self.data.append([self.serT, self.serY])
+        # both plot
         self.li.set_xdata(self.t)
         self.li.set_ydata(self.y)
         self.axes.set_xlim(min(self.t), max(self.t))
         
         self.canvas.draw()
-        self.lcd1.display(self.t[99])
-        self.lcd2.display(self.y[99])
-        
+        self.time_lcd.display(int(self.t[99]))
+        self.sensor_lcd.display(self.y[99])
+            
     def onStartButton(self):
         self.initFigure()
-        self.data = []
-        self.initTime()
+        self.timer.start()
         
     def onStopButton(self):
         self.timer.stop()
-        
