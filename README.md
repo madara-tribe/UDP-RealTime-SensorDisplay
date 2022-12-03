@@ -26,8 +26,8 @@ print("Qt: v", QT_VERSION_STR, "\tPyQt: v", PYQT_VERSION_STR)
 ```
 
 # Put into action
+<img src="https://user-images.githubusercontent.com/48679574/205445655-6d08e0eb-d415-47de-8971-fa3250fc521b.gif" width="600" height="500"/>
 
-![udp_sensor](https://user-images.githubusercontent.com/48679574/205445655-6d08e0eb-d415-47de-8971-fa3250fc521b.gif)
 
 
 # References
