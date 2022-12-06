@@ -5,7 +5,7 @@ from udp_utils import UdpServer, UdpClient
 def get_parser():
     parser = argparse.ArgumentParser()
     parser.add_argument('--qt', action='store_true', help='Pyside for GUI')
-    parser.add_argument('--host', type=str, default='192.168.10.107', help='host url')
+    parser.add_argument('--host', type=str, default='************', help='host url')
     parser.add_argument('--port', type=int, default=7000, help='port number')
     opt = parser.parse_args()
     return opt
