@@ -13,7 +13,6 @@ class UdpClient:
         
     def connect(self):
         self.client_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        self.client_socket.connect((self.host, self.port))
         print('acceptting request .......')
         
     def get_sensor_data(self):
